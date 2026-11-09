@@ -1,6 +1,7 @@
 import { about, links, site } from "../data/content";
 import { useReveal } from "../lib/anim";
 import { Icon, Section } from "./ui";
+import { asset } from "../lib/asset";
 
 export default function About() {
   const ref = useReveal<HTMLDivElement>();
@@ -27,7 +28,7 @@ export default function About() {
               aria-label="وب‌سایت رسمی کارن‌سافت"
             >
               <img
-                src="/assets/brand/karensoft-lockup.webp"
+                src={asset("/assets/brand/karensoft-lockup.webp")}
                 width={786}
                 height={198}
                 alt="لوگوی کارن‌سافت، توسعه‌دهندهٔ نرم‌افزارهای مدیریتی"

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { links, nav } from "../data/content";
 import { cn } from "../lib/utils";
 import { Icon } from "./ui";
+import { asset } from "../lib/asset";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -82,7 +83,7 @@ export default function Nav() {
           aria-label="تاکسینو — بازگشت به بالای صفحه"
         >
           <img
-            src="/assets/brand/logo-nav.webp"
+            src={asset("/assets/brand/logo-nav.webp")}
             width={902}
             height={319}
             alt="تاکسینو | Taxino — نرم‌افزار هوشمند مدیریت دفاتر تاکسی تلفنی"

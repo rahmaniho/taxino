@@ -14,7 +14,8 @@
     "assets": "node scripts/build-assets.mjs",
     "qa": "node qa/run.mjs",
     "qa:audit": "node qa/audit.mjs",
-    "qa:api": "node qa/api.mjs"
+    "qa:api": "node qa/api.mjs",
+    "qa:lead": "node qa/lead.test.mjs"
   },
   "dependencies": {
     "clsx": "2.1.1",

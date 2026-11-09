@@ -1,6 +1,7 @@
 import { brandIntro, links, site } from "../data/content";
 import { useReveal } from "../lib/anim";
 import { Section, SectionHead } from "./ui";
+import { asset } from "../lib/asset";
 
 export default function BrandIntro() {
   const ref = useReveal<HTMLDivElement>();
@@ -75,7 +76,7 @@ export default function BrandIntro() {
             <p className="eyebrow eyebrow--latin text-navy-900/65!">THE PRODUCT</p>
             <div className="mt-4 rounded-xl border border-navy-900/8 bg-white p-4">
               <img
-                src="/assets/brand/logo-light.webp"
+                src={asset("/assets/brand/logo-light.webp")}
                 width={920}
                 height={460}
                 alt="لوگوی رسمی تاکسینو به همراه شعار «همه‌چیز تحت کنترل شما»"
@@ -100,7 +101,7 @@ export default function BrandIntro() {
               className="mt-4 block overflow-hidden rounded-xl border border-navy-900/10 bg-[#0b1a33] p-4 transition-transform duration-300 hover:-translate-y-0.5"
             >
               <img
-                src="/assets/brand/karensoft-lockup.webp"
+                src={asset("/assets/brand/karensoft-lockup.webp")}
                 width={786}
                 height={198}
                 alt="لوگوی کارن‌سافت — توسعه‌دهندهٔ نرم‌افزارهای مدیریتی"

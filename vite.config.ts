@@ -8,8 +8,29 @@ import { consultApiPlugin } from "./server/vite-plugin.mjs";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 
+/**
+ * Deployment knobs
+ *  · VITE_BASE       — sub-path the site is served from ("/" by default,
+ *                      "/taxino/" for a GitHub Pages project site).
+ *  · PUBLIC_SITE_URL — absolute origin used by canonical/OG/JSON-LD, so a
+ *                      preview deployment never advertises a domain it is
+ *                      not actually served from.
+ */
+const base = process.env.VITE_BASE?.trim() || "/";
+const siteUrl = process.env.PUBLIC_SITE_URL?.trim().replace(/\/+$/, "");
+
+function siteUrlPlugin() {
+  return {
+    name: "taxino-site-url",
+    transformIndexHtml(html: string) {
+      return siteUrl ? html.split("https://www.taxino.ir").join(siteUrl) : html;
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), tailwindcss(), consultApiPlugin()],
+  base,
+  plugins: [react(), tailwindcss(), siteUrlPlugin(), consultApiPlugin()],
   resolve: {
     alias: { "@": path.resolve(root, "src") },
   },
