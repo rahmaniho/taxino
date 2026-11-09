@@ -45,15 +45,15 @@ jobs:
           path: qa-report.txt
           if-no-files-found: warn
 
-      - name: Production build for the Pages sub-path
+      - name: Production build for the custom subdomain
         run: npm run build
         env:
-          VITE_BASE: /taxino/
-          PUBLIC_SITE_URL: https://rahmaniho.github.io/taxino
+          VITE_BASE: /
+          PUBLIC_SITE_URL: https://taxino.karen-soft.ir
 
-      - name: Point crawler files at the Pages origin
+      - name: Point crawler files at the custom domain
         run: |
-          sed -i "s|https://www.taxino.ir|https://rahmaniho.github.io/taxino|g" dist/sitemap.xml dist/robots.txt
+          sed -i "s|https://www.taxino.ir|https://taxino.karen-soft.ir|g" dist/sitemap.xml dist/robots.txt
 
       - uses: actions/configure-pages@v5
 
