@@ -33,7 +33,17 @@ jobs:
         run: npm run assets
 
       - name: Quality gate (types, build, structure/SEO/axe, API, lead layer)
-        run: npm run qa
+        run: |
+          set -o pipefail
+          npm run qa 2>&1 | tee qa-report.txt
+
+      - name: Upload QA report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-report
+          path: qa-report.txt
+          if-no-files-found: warn
 
       - name: Production build for the Pages sub-path
         run: npm run build
