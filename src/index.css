@@ -463,10 +463,343 @@
     }
   }
 
-  /* reveal defaults — GSAP takes over; if JS is off, content stays visible */
-  [data-reveal] {
-    will-change: transform, opacity;
+/* reveal defaults — GSAP takes over; if JS is off, content stays visible */
+[data-reveal] {
+  will-change: transform, opacity;
+}
+
+/* ==========================================================================
+   KarenSoft — footer brand credit (attribution link)
+   Minimal, premium, subtle. Only original KarenSoft artwork is used — the
+   transparent PNGs extracted from the official 501×501 logo — no recreated
+   logotypes, no artificial containers. Animates both logo and credit text.
+   ========================================================================== */
+
+.karensoft-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-family: var(--font-en);
+  font-size: 12px;
+  color: rgba(245, 241, 234, 0.72);
+  line-height: 1.55;
+  text-decoration: none;
+  border-radius: 10px;
+  transition:
+    color 0.3s var(--ease-out-soft),
+    opacity 0.3s var(--ease-out-soft);
+  white-space: nowrap;
+}
+
+.karensoft-credit:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  color: var(--color-cream);
+  opacity: 1;
+}
+
+.karensoft-credit:hover {
+  color: rgba(245, 241, 234, 0.95);
+}
+
+.credit-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.credit-mark-wrap {
+  position: relative;
+  width: 38px;
+  height: 38px;
+}
+
+.credit-mark {
+  width: 38px;
+  height: 38px;
+  display: block;
+  filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.12));
+  will-change: transform, filter, opacity;
+  animation: ks-mark-float 4.4s ease-in-out infinite;
+}
+
+/* Restrained light sweep across the mark. */
+.credit-mark-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  transform: translateX(-140%);
+  animation: ks-mark-sweep 5.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ks-mark-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.92;
+    filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.12));
   }
+  50% {
+    transform: translateY(-3px) scale(1.04);
+    opacity: 1;
+    filter: drop-shadow(0 0 16px rgba(99, 150, 255, 0.45));
+  }
+}
+
+@keyframes ks-mark-sweep {
+  0%,
+  30% {
+    transform: translateX(-140%);
+  }
+  100% {
+    transform: translateX(140%);
+  }
+}
+
+.credit-wordmarks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.credit-wordmark-fa {
+  width: 80px;
+  height: 20px;
+  display: block;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.1));
+}
+
+.credit-wordmark-en {
+  width: 120px;
+  height: 14px;
+  display: block;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.1));
+}
+
+.credit-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.credit-prefix {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: rgba(245, 241, 234, 0.55);
+  animation: ks-prefix 4.8s ease-in-out infinite;
+}
+
+.credit-brand {
+  position: relative;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  color: #fff;
+  animation: ks-brand 5.2s ease-in-out infinite;
+}
+
+/* Soft highlight passing across the brand name. */
+.credit-brand::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: -25%;
+  top: 25%;
+  bottom: 25%;
+  width: 60%;
+  opacity: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  animation: ks-brand-highlight 6.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.credit-separator {
+  margin: 0 6px;
+  color: rgba(245, 241, 234, 0.45);
+}
+
+.credit-persian {
+  font-family: var(--font-fa);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(245, 241, 234, 0.62);
+  direction: rtl;
+  unicode-bidi: isolate;
+}
+
+@keyframes ks-prefix {
+  0%,
+  100% {
+    opacity: 0.6;
+    letter-spacing: 0.12em;
+  }
+  50% {
+    opacity: 0.9;
+    letter-spacing: 0.16em;
+  }
+}
+
+@keyframes ks-brand {
+  0%,
+  100% {
+    color: #fff;
+    letter-spacing: 0.05em;
+  }
+  40% {
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.09em;
+  }
+}
+
+@keyframes ks-brand-highlight {
+  0%,
+  40% {
+    transform: translateX(-110%);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+/* --------------------------------------------------- credit: hover state */
+.karensoft-credit:hover .credit-mark {
+  animation: none;
+  transform: translateY(-2px) scale(1.04);
+  opacity: 1;
+  filter: drop-shadow(0 0 20px rgba(99, 150, 255, 0.55));
+}
+
+.karensoft-credit:hover .credit-mark-wrap::before {
+  animation: none;
+  opacity: 0.55;
+  transform: translateX(-30%);
+}
+
+.karensoft-credit:hover .credit-prefix {
+  color: rgba(245, 241, 234, 0.85);
+  letter-spacing: 0.18em;
+}
+
+.karensoft-credit:hover .credit-brand {
+  color: #fff;
+  letter-spacing: 0.1em;
+}
+
+.karensoft-credit:hover .credit-brand::after {
+  animation: none;
+  opacity: 0;
+}
+
+.karensoft-credit:hover .credit-separator,
+.karensoft-credit:hover .credit-persian {
+  color: rgba(245, 241, 234, 0.85);
+}
+
+/* ------------------------------------------- credit: responsive & motion */
+/* Tablet: slightly smaller signature. */
+@media (max-width: 768px) {
+  .karensoft-credit {
+    gap: 8px;
+    font-size: 11px;
+  }
+  .credit-mark,
+  .credit-mark-wrap {
+    width: 32px;
+    height: 32px;
+  }
+  .credit-wordmark-fa {
+    width: 68px;
+    height: 17px;
+  }
+  .credit-wordmark-en {
+    width: 102px;
+    height: 12px;
+  }
+  .credit-brand {
+    font-size: 12px;
+  }
+  .credit-persian {
+    font-size: 11.5px;
+  }
+  .credit-prefix {
+    font-size: 9.5px;
+  }
+}
+
+/* Narrow mobile: clean two-line arrangement — logos above the text line. */
+@media (max-width: 480px) {
+  .karensoft-credit {
+    flex-direction: column;
+    gap: 9px;
+    align-items: center;
+    text-align: center;
+    white-space: normal;
+  }
+  .credit-text,
+  .credit-logo {
+    align-items: center;
+  }
+  .credit-logo {
+    flex-direction: row;
+    gap: 7px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* Respect reduced motion: freeze the continuous animations, keep only
+   instant hover transitions. */
+@media (prefers-reduced-motion: reduce) {
+  .credit-mark,
+  .credit-mark-wrap::before,
+  .credit-prefix,
+  .credit-brand,
+  .credit-brand::after {
+    animation: none !important;
+  }
+  .credit-mark,
+  .credit-mark-wrap::before {
+    transform: none !important;
+    opacity: 1 !important;
+    filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.12)) !important;
+  }
+  .karensoft-credit:hover .credit-mark {
+    transform: none !important;
+    filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.12)) !important;
+  }
+  .karensoft-credit,
+  .karensoft-credit *,
+  .karensoft-credit::before,
+  .karensoft-credit::after {
+    transition-duration: 0.01s !important;
+    transition-delay: 0s !important;
+  }
+}
 
   .sr-only-focusable:not(:focus) {
     position: absolute;

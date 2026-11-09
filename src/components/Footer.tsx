@@ -4,6 +4,57 @@ import { asset } from "../lib/asset";
 
 const year = new Intl.DateTimeFormat("fa-IR-u-nu-arab", { year: "numeric" }).format(new Date());
 
+/* ------------------------------------------------------------------ credit */
+/* KarenSoft brand attribution: original artwork (transparent PNGs extracted
+   from the official 501×501 logo) + credit text, one clickable link. */
+function KarensoftCredit() {
+  return (
+    <a
+      href="https://www.karen-soft.ir"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Designed and Developed by KarenSoft"
+      className="karensoft-credit"
+    >
+      <span className="credit-logo" aria-hidden="true">
+        <span className="credit-mark-wrap">
+          <img
+            src={asset("/images/karensoft/mark.png")}
+            alt=""
+            className="credit-mark"
+            width={38}
+            height={38}
+          />
+        </span>
+        <span className="credit-wordmarks">
+          <img
+            src={asset("/images/karensoft/wordmark-fa.png")}
+            alt=""
+            className="credit-wordmark-fa"
+            width={80}
+            height={20}
+          />
+          <img
+            src={asset("/images/karensoft/wordmark-en.png")}
+            alt=""
+            className="credit-wordmark-en"
+            width={120}
+            height={14}
+          />
+        </span>
+      </span>
+      <span className="credit-text">
+        <span className="credit-prefix">Designed &amp; Developed by</span>
+        <span className="credit-brand">KarenSoft</span>
+        <span className="credit-separator" aria-hidden="true">
+          |
+        </span>
+        <span className="credit-persian">کارن سافت</span>
+      </span>
+    </a>
+  );
+}
+
 export default function Footer() {
   return (
     <footer className="relative isolate overflow-hidden border-t border-white/8 bg-navy-950 pt-16 pb-28 sm:pb-8">
@@ -120,10 +171,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col-reverse items-center justify-between gap-4 border-t border-white/8 pt-6 sm:flex-row">
-          <p className="text-center text-[10.5px] leading-[1.9] text-cream/55 sm:text-start">
-            © {year} — {footer.rights}
-          </p>
+        <div className="mt-12 flex flex-col-reverse items-center justify-between gap-4 border-t border-white/8 pt-6 sm:flex-row sm:gap-6">
+          <div className="flex items-center gap-3 sm:flex-nowrap">
+            <p className="text-center text-[10.5px] leading-[1.9] text-cream/55 sm:text-start">
+              © {year} — {footer.rights}
+            </p>
+            <KarensoftCredit />
+          </div>
           <div className="flex items-center gap-4">
             <span className="latin text-[9.5px] font-semibold tracking-[0.2em] text-cream/55">
               POWERED BY KAREN SOFT
