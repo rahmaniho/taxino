@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# build output
+dist/
+qa/.ssr/
+
+# local lead inbox (never commit real customer data)
+var/
+
+# tooling noise
+.DS_Store
+*.log
+npm-debug.log*
+.vite/
+.env
+.env.local
+.env.*.local
