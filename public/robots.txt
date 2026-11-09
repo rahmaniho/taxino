@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Crawl-delay is ignored by Google but respected by some smaller crawlers.
+Crawl-delay: 1
+
+Sitemap: https://www.taxino.ir/sitemap.xml

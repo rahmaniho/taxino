@@ -1,0 +1,17 @@
+{
+  "name": "تاکسینو | Taxino — نرم‌افزار مدیریت آژانس تاکسی",
+  "short_name": "تاکسینو",
+  "description": "نرم‌افزار تخصصی مدیریت آژانس‌های تاکسی تلفنی؛ محصولی از کارن‌سافت.",
+  "lang": "fa-IR",
+  "dir": "rtl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#050d21",
+  "theme_color": "#050d21",
+  "icons": [
+    { "src": "/assets/brand/mark-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/brand/mark-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/brand/mark-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
