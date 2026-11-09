@@ -36,8 +36,8 @@ export const links = {
   aboutPage: "https://karen-soft.ir/about",
   karenSoft: "https://karen-soft.ir/",
   github: "https://github.com/rahmaniho/taxi",
-  privacy: "/privacy.html",
-  terms: "/terms.html",
+  privacy: "privacy.html",
+  terms: "terms.html",
 } as const;
 
 export const nav = [
@@ -622,6 +622,11 @@ export const consultForm = {
   sending: "در حال ارسال…",
   success: "درخواست شما ثبت شد. کارشناس ما در ساعات کاری با شما تماس می‌گیرد.",
   successRef: "شمارهٔ پیگیری:",
+  fallbackTitle: "ارسال از طریق ایمیل",
+  fallbackNote:
+    "این نسخه روی میزبانی استاتیک منتشر شده و سروری برای دریافت فرم ندارد؛ به‌جای پیام موفقیت ساختگی، اطلاعات شما آماده شده است. با دکمهٔ زیر پیام در برنامهٔ ایمیل شما باز و ارسال می‌شود، یا می‌توانید تلفنی تماس بگیرید.",
+  fallbackMail: "ارسال با ایمیل",
+  fallbackCall: "تماس تلفنی",
   error: "ارسال انجام نشد. لطفاً دوباره تلاش کنید یا با شمارهٔ دفتر تماس بگیرید.",
   fallback: "اگر ارسال فرم ممکن نشد، مستقیم تماس بگیرید:",
 } as const;

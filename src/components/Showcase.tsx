@@ -3,9 +3,10 @@ import { showcase } from "../data/content";
 import { useReveal } from "../lib/anim";
 import { cn } from "../lib/utils";
 import { Icon, Section, SectionHead } from "./ui";
+import { asset, srcSet } from "../lib/asset";
 
 function buildSrcSet(base: string, widths: readonly number[], ext: "avif" | "webp" | "jpg") {
-  return widths.map((width) => `${base}-${width}.${ext} ${width}w`).join(", ");
+  return srcSet(base, widths, ext);
 }
 
 export default function Showcase() {
@@ -107,7 +108,7 @@ export default function Showcase() {
                         sizes="(min-width: 1024px) 42vw, 92vw"
                       />
                       <img
-                        src={`${item.src}-${item.widths[item.widths.length - 1]}.jpg`}
+                        src={asset(`${item.src}-${item.widths[item.widths.length - 1]}.jpg`)}
                         alt={item.caption}
                         width={item.width}
                         height={item.height}
@@ -179,7 +180,7 @@ export default function Showcase() {
 
             <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-navy-950/60">
               <img
-                src={`${active.src}-${active.widths[active.widths.length - 1]}.jpg`}
+                src={asset(`${active.src}-${active.widths[active.widths.length - 1]}.jpg`)}
                 alt={active.caption}
                 width={active.width}
                 height={active.height}

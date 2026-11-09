@@ -1,0 +1,63 @@
+name: Deploy landing page to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Build brand assets (AVIF/WebP sets, fonts, icons)
+        run: npm run assets
+
+      - name: Quality gate (types, build, structure/SEO/axe, API, lead layer)
+        run: npm run qa
+
+      - name: Production build for the Pages sub-path
+        run: npm run build
+        env:
+          VITE_BASE: /taxino/
+          PUBLIC_SITE_URL: https://rahmaniho.github.io/taxino
+
+      - name: Point crawler files at the Pages origin
+        run: |
+          sed -i "s|https://www.taxino.ir|https://rahmaniho.github.io/taxino|g" dist/sitemap.xml dist/robots.txt
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

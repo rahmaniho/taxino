@@ -17,6 +17,7 @@ const steps = [
   { name: "SSR snapshot", cmd: "npx", args: ["vite", "build", "--config", "qa/vite.ssr.config.ts"] },
   { name: "Static audit (structure · SEO · axe)", cmd: "node", args: ["qa/audit.mjs"] },
   { name: "API contract tests", cmd: "node", args: ["qa/api.mjs"] },
+  { name: "Lead layer (static-host fallback)", cmd: "node", args: ["qa/lead.test.mjs"] },
 ];
 
 const report = [];

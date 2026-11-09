@@ -39,6 +39,9 @@ npm run qa:api       # فقط تست‌های قرارداد API فرم
 | `LEAD_DIR` | مسیر ذخیرهٔ سرنخ‌ها (JSONL با دسترسی 0600) | `./var/leads` |
 | `LEAD_WEBHOOK_URL` | ارسال هر سرنخ به وبهوک/CRM | خالی |
 | `PORT` / `HOST` | سرور تولید | `4173` / `0.0.0.0` |
+| `VITE_BASE` | مسیری که سایت در آن سرو می‌شود | `/` (`/taxino/` روی گیت‌هاب پیجز) |
+| `PUBLIC_SITE_URL` | مبدأ مطلق برای canonical/OG/JSON-LD | `https://www.taxino.ir` |
+| `VITE_CONSULT_ENDPOINT` | نشانی API فرم در صورت میزبانی جدا | `/api/consult` |
 
 ---
 
@@ -162,6 +165,8 @@ npm run qa:api       # فقط تست‌های قرارداد API فرم
 | ممیزی ساختاری/SEO | `node qa/audit.mjs` | ✅ ۲۲/۲۲ بررسی |
 | axe-core (jsdom) | همان اسکریپت | ✅ بدون نقض جدی/بحرانی |
 | قرارداد API | `node qa/api.mjs` | ✅ ۱۳/۱۳ بررسی (پذیرش، نرمال‌سازی شماره، رد honeypot، اعتبارسنجی، ۴۱۵، ۴۱۳، ۴۲۹، ۴۰۵) |
+| لایهٔ ارسال سرنخ | `node qa/lead.test.mjs` | ✅ ۹/۹ بررسی (سقوط به ایمیل روی میزبان استاتیک، خطای شبکه، ۲۰۰/۴۰۰/۴۲۹/۵۰۳، ساخت mailto) |
+| کل دروازه | `npm run qa` | ✅ ۶/۶ مرحله |
 | سرور تولید | `npm start` + curl | ✅ `/`, `/privacy.html`, `/assets/…`, `/sitemap.xml`, `POST /api/consult` |
 
 ### آنچه اندازه‌گیری **نشده** است (صادقانه)
@@ -183,6 +188,15 @@ npm run qa:api       # فقط تست‌های قرارداد API فرم
 ---
 
 ## ۹) استقرار
+
+### انتشار خودکار روی GitHub Pages
+
+مخزن شامل ورک‌فلوی `.github/workflows/pages.yml` است: با هر push روی `main`، وابستگی‌ها نصب، دارایی‌ها ساخته، دروازهٔ کیفیت اجرا و خروجی با `VITE_BASE=/taxino/` و `PUBLIC_SITE_URL=https://rahmaniho.github.io/taxino` ساخته و روی Pages منتشر می‌شود.
+
+- حالت Pages باید روی **GitHub Actions** باشد (Settings → Pages → Source: GitHub Actions).
+- نشانی انتشار: <https://rahmaniho.github.io/taxino/>
+- **فرم روی این نسخه:** میزبان استاتیک است و `/api/consult` وجود ندارد؛ بنابراین فرم پس از اعتبارسنجی، پیام را آماده و با دکمهٔ «ارسال با ایمیل» به `info@taxino.ir` تحویل می‌دهد (به‌همراه دکمهٔ تماس). هیچ پیام موفقیت جعلی نمایش داده نمی‌شود. برای فعال‌کردن ارسال سروری، `VITE_CONSULT_ENDPOINT` را به یک تابع فعال (Vercel/Node) تنظیم کنید.
+- نسخهٔ خودکار از دید موتور جست‌وجو، دامنهٔ `rahmaniho.github.io/taxino` را اعلام می‌کند (canonical/OG/sitemap بازنویسی می‌شوند) تا داده‌ساختاریافته با دامنهٔ واقعیِ محل سرو هم‌خوان باشد.
 
 **الف) Vercel (توصیه‌شده):** پروژه را به Vercel وصل کنید. `dist` به‌صورت استاتیک سرو می‌شود و `api/consult.mjs` به‌طور خودکار به یک Function تبدیل می‌شود. متغیر `LEAD_WEBHOOK_URL` را در Environment Variables تنظیم کنید (دیسک Vercel پایدار نیست، پس برای تولید وبهوک یا دیتابیس لازم است).
 

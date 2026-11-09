@@ -1,5 +1,6 @@
 import { contact, footer, links, site } from "../data/content";
 import { Icon } from "./ui";
+import { asset } from "../lib/asset";
 
 const year = new Intl.DateTimeFormat("fa-IR-u-nu-arab", { year: "numeric" }).format(new Date());
 
@@ -17,7 +18,7 @@ export default function Footer() {
           <div>
             <a href="#hero" aria-label="تاکسینو — بازگشت به بالای صفحه" className="inline-block">
               <img
-                src="/assets/brand/logo-dark.webp"
+                src={asset("/assets/brand/logo-dark.webp")}
                 width={920}
                 height={460}
                 alt="لوگوی تاکسینو | Taxino"

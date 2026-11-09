@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { consultForm, contact, pricing } from "../data/content";
+import { submitLead, type LeadPayload } from "../lib/lead";
 import { PLAN_EVENT } from "../lib/plan";
 import { cn } from "../lib/utils";
 import { Icon } from "./ui";
 
-type Status = "idle" | "sending" | "success" | "error";
+type Status = "idle" | "sending" | "success" | "error" | "handoff";
 
 interface FormState {
   name: string;
@@ -56,6 +57,7 @@ export default function ConsultForm({ id = "consult-form" }: { id?: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
   const [reference, setReference] = useState("");
+  const [mailto, setMailto] = useState("");
   const honeypot = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -87,52 +89,48 @@ export default function ConsultForm({ id = "consult-form" }: { id?: string }) {
 
     setStatus("sending");
     setMessage("");
-    try {
-      const response = await fetch("/api/consult", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...state,
-          phone: normalisePhone(state.phone),
-          drivers: state.drivers ? Number(latinDigits(state.drivers).replace(/[^\d]/g, "")) : null,
-          plan: plan || null,
-          consent,
-          source: "landing",
-          website: honeypot.current?.value ?? "",
-        }),
-      });
+    setMailto("");
 
-      const payload = (await response.json().catch(() => ({}))) as {
-        ok?: boolean;
-        id?: string;
-        errors?: Record<string, string>;
-        message?: string;
-      };
+    const payload: LeadPayload = {
+      name: state.name.trim(),
+      phone: normalisePhone(state.phone),
+      agency: state.agency.trim(),
+      city: state.city.trim(),
+      drivers: state.drivers ? Number(latinDigits(state.drivers).replace(/[^\d]/g, "")) : null,
+      note: state.note.trim(),
+      plan: plan || null,
+      consent,
+      source: "landing",
+      website: honeypot.current?.value ?? "",
+    };
 
-      if (response.ok && payload.ok) {
+    const result = await submitLead(payload);
+
+    switch (result.kind) {
+      case "ok":
         setStatus("success");
-        setReference(payload.id ?? "");
+        setReference(result.id ?? "");
         setState(EMPTY);
         setConsent(false);
         setPlan("");
         return;
-      }
-
-      if (payload.errors && Object.keys(payload.errors).length) {
-        setErrors(payload.errors);
+      case "invalid":
+        setErrors(result.errors);
         setStatus("idle");
         return;
-      }
-
-      setStatus("error");
-      setMessage(
-        response.status === 429
-          ? "تعداد درخواست‌ها زیاد بود. چند دقیقه بعد دوباره تلاش کنید یا تلفنی تماس بگیرید."
-          : consultForm.error,
-      );
-    } catch {
-      setStatus("error");
-      setMessage(consultForm.error);
+      case "unavailable":
+        // Static hosting (GitHub Pages): hand the lead over to the mail client
+        // instead of pretending it was submitted.
+        setMailto(result.mailto);
+        setStatus("handoff");
+        return;
+      case "rate-limited":
+        setStatus("error");
+        setMessage("تعداد درخواست‌ها زیاد بود. چند دقیقه بعد دوباره تلاش کنید یا تلفنی تماس بگیرید.");
+        return;
+      default:
+        setStatus("error");
+        setMessage(result.message || consultForm.error);
     }
   };
 
@@ -409,6 +407,27 @@ export default function ConsultForm({ id = "consult-form" }: { id?: string }) {
           </>
         )}
       </button>
+
+      {status === "handoff" ? (
+        <div
+          role="status"
+          aria-live="polite"
+          className="mt-3 rounded-xl border border-gold/50 bg-gold/10 p-3.5 text-start"
+        >
+          <p className="text-[12px] font-extrabold text-navy-900">{consultForm.fallbackTitle}</p>
+          <p className="mt-1 text-[11px] leading-[1.95] text-graphite">{consultForm.fallbackNote}</p>
+          <div className="mt-2.5 flex flex-wrap gap-2">
+            <a href={mailto} className="btn btn-dark py-2.5! text-[12px]!">
+              <Icon name="mail" size={14} />
+              {consultForm.fallbackMail}
+            </a>
+            <a href="tel:+982191090000" className="btn btn-outline-dark py-2.5! text-[12px]!">
+              <Icon name="phone" size={14} />
+              {consultForm.fallbackCall}
+            </a>
+          </div>
+        </div>
+      ) : null}
 
       <p aria-live="polite" className="mt-3 min-h-[1.2rem] text-[11px] leading-[1.9] text-danger">
         {status === "error" ? message : ""}

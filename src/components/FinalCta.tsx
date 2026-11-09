@@ -2,6 +2,7 @@ import { contact, finalCta, links } from "../data/content";
 import { useReveal } from "../lib/anim";
 import { Icon } from "./ui";
 import ConsultForm from "./ConsultForm";
+import { asset } from "../lib/asset";
 
 export default function FinalCta() {
   const ref = useReveal<HTMLDivElement>();
@@ -15,10 +16,10 @@ export default function FinalCta() {
       {/* cinematic backdrop — the official product artwork, re-cropped */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
         <picture>
-          <source type="image/avif" srcSet="/assets/hero/taxi-night-852.avif" />
-          <source type="image/webp" srcSet="/assets/hero/taxi-night-852.webp" />
+          <source type="image/avif" srcSet={asset("/assets/hero/taxi-night-852.avif")} />
+          <source type="image/webp" srcSet={asset("/assets/hero/taxi-night-852.webp")} />
           <img
-            src="/assets/hero/taxi-night-852.jpg"
+            src={asset("/assets/hero/taxi-night-852.jpg")}
             alt=""
             width={852}
             height={885}

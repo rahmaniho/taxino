@@ -2,6 +2,7 @@ import { hero, links, site } from "../data/content";
 import { toFa } from "../lib/utils";
 import { useHeroIntro, usePointerParallax } from "../lib/anim";
 import { Icon, SampleBadge } from "./ui";
+import { asset, srcSet } from "../lib/asset";
 
 function Panel({
   title,
@@ -119,12 +120,12 @@ export default function Hero() {
             {/* frame */}
             <div className="relative overflow-hidden rounded-[1.6rem] border border-white/12 bg-navy-950 shadow-[0_50px_120px_-60px_rgba(0,0,0,0.95)] sm:rounded-[2rem]">
               <picture>
-                <source type="image/avif" srcSet="/assets/hero/taxi-night-852.avif" />
-                <source type="image/webp" srcSet="/assets/hero/taxi-night-852.webp" />
+                <source type="image/avif" srcSet={asset("/assets/hero/taxi-night-852.avif")} />
+                <source type="image/webp" srcSet={asset("/assets/hero/taxi-night-852.webp")} />
                 <img
                   data-hero-media
-                  src="/assets/hero/taxi-night-852.jpg"
-                  srcSet="/assets/hero/taxi-night-420.jpg 420w, /assets/hero/taxi-night-640.jpg 640w, /assets/hero/taxi-night-852.jpg 852w"
+                  src={asset("/assets/hero/taxi-night-852.jpg")}
+                  srcSet={srcSet("/assets/hero/taxi-night", [420, 640, 852], "jpg")}
                   sizes="(min-width: 1024px) 44vw, 92vw"
                   width={852}
                   height={885}
@@ -172,7 +173,7 @@ export default function Hero() {
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4 sm:p-5">
                 <div className="flex min-w-0 items-center gap-2.5">
                   <img
-                    src="/assets/brand/mark-192.png"
+                    src={asset("/assets/brand/mark-192.png")}
                     width={192}
                     height={192}
                     alt="آیکون اپلیکیشن تاکسینو"
