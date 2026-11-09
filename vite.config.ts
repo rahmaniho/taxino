@@ -28,6 +28,12 @@ export default defineConfig({
   },
   // The preview proxy serves the app from a *.e2b.app host; Vite blocks unknown
   // hosts by default, so the sandbox preview (and localhost) are allowed here.
-  server: { host: "0.0.0.0", port: 5173, allowedHosts: [".e2b.app", "localhost", "127.0.0.1"] },
+  server: {
+    host: "0.0.0.0",
+    port: 5173,
+    allowedHosts: [".e2b.app", "localhost", "127.0.0.1"],
+    // QA artefacts must not trigger a page reload in the middle of the audit.
+    watch: { ignored: ["**/qa/.ssr/**", "**/var/**", "**/dist/**"] },
+  },
   preview: { host: "0.0.0.0", port: 4173, allowedHosts: [".e2b.app", "localhost", "127.0.0.1"] },
 });
