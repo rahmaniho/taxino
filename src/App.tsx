@@ -4,6 +4,7 @@ import Hero from "./components/Hero";
 import BrandIntro from "./components/BrandIntro";
 import Challenges from "./components/Challenges";
 import DispatchDemo from "./components/DispatchDemo";
+import DemoExperience from "./components/DemoExperience";
 import Features from "./components/Features";
 import Showcase from "./components/Showcase";
 import Workflow from "./components/Workflow";
@@ -133,6 +134,7 @@ export default function App() {
         <BrandIntro />
         <Challenges />
         <DispatchDemo />
+        <DemoExperience />
         <Features />
         <Showcase />
         <Workflow />
