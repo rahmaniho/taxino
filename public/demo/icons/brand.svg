@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="256" y1="0" x2="256" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#132245"/>
+      <stop offset="1" stop-color="#04122D"/>
+    </linearGradient>
+    <linearGradient id="pin" x1="256" y1="88" x2="290" y2="452" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFC60B"/>
+      <stop offset="1" stop-color="#F59300"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="496" height="496" rx="112" fill="url(#bg)"/>
+  <path d="M162 158C188 109 239 78 298 78c86 0 156 70 156 156 0 79-69 156-147 224-8 7-20 7-28 0-53-46-103-99-130-150h44c24 41 63 83 100 116 64-58 123-124 123-190 0-65-53-118-118-118-43 0-80 23-101 58h-35Z" fill="url(#pin)"/>
+  <g fill="#FFC007">
+    <polygon points="69,202 110,202 99,240 58,240"/>
+    <polygon points="150,202 191,202 180,240 139,240"/>
+    <polygon points="99,240 140,240 129,278 88,278"/>
+    <polygon points="180,240 221,240 210,278 169,278"/>
+  </g>
+  <path d="M229 175h163l-6 23c-5 16-19 26-36 26h-43l-36 144-32-27 30-117h-59l8-31c3-11 13-18 25-18Z" fill="#FAFBFC"/>
+</svg>
