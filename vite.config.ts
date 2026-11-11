@@ -44,6 +44,7 @@ export default defineConfig({
         main: path.resolve(root, "index.html"),
         privacy: path.resolve(root, "privacy.html"),
         terms: path.resolve(root, "terms.html"),
+        demo: path.resolve(root, "demo.html"),
       },
     },
   },
