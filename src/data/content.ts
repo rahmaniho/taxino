@@ -30,7 +30,7 @@ export const contact = {
 } as const;
 
 export const links = {
-  demo: "https://karen-soft.ir/demo",
+  demo: "https://taxino.karen-soft.ir/demo",
   app: "https://taxi.karen-soft.ir",
   productPage: "https://karen-soft.ir/products/taxi-management",
   aboutPage: "https://karen-soft.ir/about",
